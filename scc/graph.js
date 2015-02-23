@@ -11,6 +11,11 @@
 
   };
 
+  var Node = function() {
+    this.neighbors = [];
+    this.visited = false;
+  };
+
 
 /******************************************************************************
  * Load the graph from the text file and generate the original graph
@@ -27,10 +32,10 @@
     var to = edge[1];
 
     // Every node gets a key, even if it has no neighbors
-    originalGraph[from] = (originalGraph[from] ? originalGraph[from] : []);
-    originalGraph[to] = (originalGraph[to] ? originalGraph[to] : []);
+    originalGraph[from] = (originalGraph[from] ? originalGraph[from] : new Node());
+    originalGraph[to] = (originalGraph[to] ? originalGraph[to] : new Node());
 
-    originalGraph[from].push(to);
+    originalGraph[from].neighbors.push(to);
 
   });
 
@@ -41,16 +46,16 @@
 reversedGraph = new Graph();
 
 
-_.forIn(originalGraph, function(neighbors, node) {
-  if (!Array.isArray(neighbors)) console.log('unexpected key in originalGraph : ' + node);
+_.forIn(originalGraph, function(node, nodeName) {
+  if (!Array.isArray(node.neighbors)) throw new Error('unexpected key in originalGraph : ' + nodeName);
 
-  reversedGraph[node] = reversedGraph[node] || [];
+  reversedGraph[nodeName] = reversedGraph[nodeName] || new Node();
 
   // Add node to reversed graph neighbor list of each of it's original neighbors
-  if (!neighbors.length) return;
-  neighbors.forEach(function(neighbor) {
-    reversedGraph[neighbor] = reversedGraph[neighbor] || [];
-    reversedGraph[neighbor].push(node);
+  if (!node.neighbors.length) return;
+  node.neighbors.forEach(function(neighbor) {
+    reversedGraph[neighbor] = reversedGraph[neighbor] || new Node();
+    reversedGraph[neighbor].neighbors.push(node);
   });
 });
 
