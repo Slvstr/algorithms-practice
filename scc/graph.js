@@ -55,7 +55,7 @@ _.forIn(originalGraph, function(node, nodeName) {
   if (!node.neighbors.length) return;
   node.neighbors.forEach(function(neighbor) {
     reversedGraph[neighbor] = reversedGraph[neighbor] || new Node();
-    reversedGraph[neighbor].neighbors.push(node);
+    reversedGraph[neighbor].neighbors.push(nodeName);
   });
 });
 
