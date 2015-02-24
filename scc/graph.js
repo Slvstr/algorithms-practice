@@ -27,13 +27,14 @@
   var inputText = fs.readFileSync(__dirname + '/edges.txt', {encoding: 'utf8'});
   var inputArray = inputText.split('\n');
   inputArray.forEach(function(line) {
-    var edge = line.trim().split(' ');
+    var edge = line.trim().split(/\s+/);
     var from = edge[0];
     var to = edge[1];
 
     // Every node gets a key, even if it has no neighbors
     originalGraph[from] = (originalGraph[from] ? originalGraph[from] : new Node());
     originalGraph[to] = (originalGraph[to] ? originalGraph[to] : new Node());
+
 
     originalGraph[from].neighbors.push(to);
 
