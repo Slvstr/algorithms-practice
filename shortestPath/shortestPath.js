@@ -8,22 +8,28 @@
   // Vertices to report shortest paths for, as specified by the assignment instructions
   var verticesToReport = ['7','37','59','82','99','115','133','165','188','197'];
   // var verticesToReport = ['10','30','50','80','90','110','130','160','180','190'];
+
   var startVertex = '1';
 
 
+  /******************************************************************************
+   * Generate the results
+   *****************************************************************************/
   var shortestPaths = computeShortestPaths(graph, startVertex);
-  
 
   var results = verticesToReport.map(function(vertex) {
     return shortestPaths[vertex];
   });
-
 
   console.log(results.join(','));
 
 
 
 
+
+  /******************************************************************************
+   * Begin function definitions
+   *****************************************************************************/
   function computeShortestPaths(graph, startVertex) {
 
     // Set of vertices that have been processed, initialized with start vertex
