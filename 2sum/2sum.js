@@ -8,7 +8,6 @@
   var inputArray = inputText.split('\n');
   inputArray.pop();
 
-
   var hash = {};
 
   // Use resultSet to make sure the same target isn't counted more than once. 
@@ -22,72 +21,112 @@
     var num = parseInt(str);
     hash[num] = num;
 
+
     return num;
   }).sort();
 
-  var x;
-  var y;
-  var total;
-  var yLow;
-  var yHigh;
-  var yLowIndex;
-  var yHighIndex;
+  console.log(inputArray.length);
+
+  var total,
+      x,
+      y;
 
 
-  var findIndex = function(value, low, high, options) {
+  for (var i = -10000; i <= 10000; i++) {
+    for (var j = 0; j < inputArray.length; j++) {
+      x = inputArray[j];
+      y = i - x;
 
-    if ((high - low) <= 1) {
-      return (options.mode === 'high' ? high : low);
-    }
-
-    var mid = Math.floor((high - low)/2) + low;
-    var midValue = inputArray[mid];
-
-
-    if (value === midValue) {
-      return mid;
-    }
-
-
-    if (value < midValue) {
-      return findIndex(value, low, mid, options);
-    }
-
-    if (value > midValue) {
-      return findIndex(value, mid+1, high, options);
-    }
-
-
-
-  }
-
-  // Might have to use hash to get rid of duplicates, but for now just going with the array for performace
-  for( var i = 0, len = inputArray.length; i < len; i++ ) {
-    x = inputArray[i];
-    yLow = -10000 - x;
-    yHigh = 10000 - x;
-
-    // get start index of yLow
-    yLowIndex = findIndex(yLow, i, len, {mode: 'low'});
-
-    // get start index of yHigh
-    yHighIndex = findIndex(yHigh, i, len, {mode: 'high'});
-
-    // generate sums and store in resultSet
-    for (var j = yLowIndex; j <= yHighIndex; j++) {
-      y = inputArray[j];
-      total = x + y;
-
-      if (Math.abs(total) <= 10000) {
-        resultSet[total] = total;
+      if (x > 10000) {
+        break;
       }
 
+      if (hash[y] !== undefined && x !== y) {
+        resultSet[i] = i;
+        break;
+      }
     }
   }
 
+  console.log(Object.keys(resultSet).length);
 
-  // report resultSet.length
-  console.log('result: ' + Object.keys(resultSet).length);
+  // var x;
+  // var y;
+  // var total;
+  // var yLow;
+  // var yHigh;
+  // var yLowIndex;
+  // var yHighIndex;
+
+
+  // var findIndex = function(target, low, high, options) {
+
+  //   if ((high - low) <= 1) {
+  //     if (options.mode === 'low') {
+  //       return low;
+  //     }
+  //     else if (options.mode === 'high') {
+  //       return high;
+  //     }
+  //   }
+
+  //   var mid = Math.floor((high - low)/2) + low;
+  //   var midValue = inputArray[mid];
+
+
+  //   if (target === midValue) {
+  //     return mid;
+  //     console.log('target was mid');
+  //   }
+
+
+  //   if (target < midValue) {
+  //     return findIndex(target, low, mid, options);
+  //   }
+
+  //   if (target > midValue) {
+  //     return findIndex(target, mid+1, high, options);
+  //   }
+
+
+
+  // }
+
+
+
+
+  // // Might have to use hash to get rid of duplicates, but for now just going with the array for performace
+  // for( var i = 0, len = inputArray.length; i < len; i++ ) {
+  //   x = inputArray[i];
+  //   yLow = -10000 - x;
+  //   yHigh = 10000-x;
+
+
+  //   // get start index of yLow
+  //   yLowIndex = findIndex(yLow, 0, len, {mode: 'low'});
+
+  //   // get start index of yHigh
+  //   yHighIndex = findIndex(yHigh, 0, len, {mode: 'high'});
+
+  //   // generate sums and store in resultSet
+  //   for (var j = yLowIndex; j < yHighIndex; j++) {
+  //     y = inputArray[j];
+  //     total = x + y;
+  //     // console.log(total);
+
+  //     if (Math.abs(total) <= 10000 && typeof total === 'number') {
+  //       resultSet[total] = total;
+  //     }
+
+  //   }
+  // }
+
+
+  // // report resultSet.length
+  // Object.keys(resultSet).forEach(function(total) {
+  //   console.log(total);
+  // });
+  // console.log('result: ' + Object.keys(resultSet).length);
 
 
   // for(var target = -10000; target <= 10000; target++) {

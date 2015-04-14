@@ -18,7 +18,7 @@ DIRECTIONS FOR THIS PROBLEM:
 For the first part of the programming assignment, you should always use the first element of the array as the pivot element.
 
  *****************************************************************************/
-
+// This gets an input array from a text file
 var input = require('./getInputArray');
 console.log(input.length);
 

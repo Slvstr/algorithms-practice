@@ -94,7 +94,7 @@ var findCut = function(graph) {
   var currentEdge;
   var result = {};
   var mergeID = 0;
-  console.log('graph has ' + graph.nodes.length + ' nodes');
+  // console.log('graph has ' + graph.nodes.length + ' nodes');
 
   for (var i = 0; i < graph.nodes.length - 2; i++) {
     // getRandomEdge takes care of selecting the edge and removing it from the graph
